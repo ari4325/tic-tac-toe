@@ -1,0 +1,126 @@
+<head>
+    <title>Tic-Tac-Toe</title>
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Image_created_with_a_mobile_phone.png/220px-Image_created_with_a_mobile_phone.png" type="image/png">
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" type="text/css" href="design.css"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+</head>
+<body bgcolor="#8f0e0e">
+    <div class="container">
+        <h1 align="center">TIC-TAC-TOE</h1>
+        <h5>by Arishmit Ghosh</h5>
+
+
+        <div id="board">                      
+            <img class="box" id="0"></img>                     
+            <img class="box" id="1"></img>                        
+            <img class="box" id="2"></img>                        
+            <img class="box" id="3"></img>                        
+            <img class="box" id="4"></img>                        
+            <img class="box" id="5"></img>                        
+            <img class="box" id="6"></img>                        
+            <img class="box" id="7"></img>                        
+            <img class="box" id="8"></img>                    
+         </div>
+
+        
+    </div>
+
+    <script>
+        const boxes = document.querySelectorAll('.box');
+
+        const spaces = [];
+        const tick_circle = 'https://cdn.pixabay.com/photo/2021/08/25/20/42/field-6574455__340.jpg';
+        const tick_x = 'https://static.toiimg.com/thumb/msid-58475411,width-748,height-499,resizemode=4,imgsize-142947/.jpg';
+        let currentPlayer = tick_circle;
+
+        const playerWon = () => {
+            if (spaces[0] === currentPlayer) {
+                if (spaces[1] === currentPlayer && spaces[2] === currentPlayer) {
+                
+                return true;
+                }
+                if (spaces[3] === currentPlayer && spaces[6] === currentPlayer) {
+                
+                return true;
+                }
+                if (spaces[4] === currentPlayer && spaces[8] === currentPlayer) {
+                
+                return true;
+                }
+            }
+            if (spaces[8] === currentPlayer) {
+                if (spaces[2] === currentPlayer && spaces[5] === currentPlayer) {
+                
+                return true;
+                }
+                if (spaces[6] === currentPlayer && spaces[7] === currentPlayer) {
+                
+                return true;
+                }
+            }
+            if (spaces[4] === currentPlayer) {
+                if (spaces[1] === currentPlayer && spaces[7] === currentPlayer) {
+                
+                return true;
+                }
+                if (spaces[3] === currentPlayer && spaces[5] === currentPlayer) {
+                
+                return true;
+                }
+                if (spaces[2] === currentPlayer && spaces[6] === currentPlayer) {
+                
+                return true;
+                }
+            }
+        };
+
+        const playerDraw = () => {
+            let draw = 0;
+            spaces.forEach((space, i) => {
+                if (spaces[i] !== null) draw++;
+            });
+            if (draw === 9) {
+                text.innerText = `Draw`;
+                alert('IT IS A DRAW');
+                setTimeout(() => {
+                    spaces.forEach((space, i) => {
+                    spaces[i] = null;
+                    });
+                    boxes.forEach((box) => {
+                    box.innerText = '';
+                    });
+                }, 1000);
+            }
+        };
+
+        const boxClicked = (e) => {
+            const id = e.target.id;
+            if (!spaces[id]) {
+                spaces[id] = currentPlayer;
+                e.target.src = currentPlayer;
+
+                if (playerWon()) {
+                    alert('Player has won');
+                    
+                    return;
+                }
+
+                if (playerDraw()) {
+                    return;
+                }
+
+                currentPlayer = currentPlayer === tick_circle ? tick_x : tick_circle;
+            }
+        };
+
+        boxes.forEach((box, i) => {
+            box.addEventListener('click', boxClicked);
+        });
+
+
+    </script>
+</body>
